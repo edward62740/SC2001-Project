@@ -4,26 +4,25 @@ import java.util.Arrays;
 
 public class MergeSort {
 
-	public static int sort(int[] ar, int start, int end) {
-		int cmp = 0;
+	public static long sort(int[] ar, int start, int end) {
+		long cmp = 0;
 		if (start < end) {
 			int mid = start + (end - start) / 2;
 
 			cmp += sort(ar, start, mid);
 			cmp += sort(ar, mid + 1, end);
 
-			cmp += merge(ar, start, end);
+			cmp += merge(ar, start, end, mid);
 		}
 		return cmp;
 	}
 
-	public static int merge(int[] ar, int start, int end) {
-		int mid = start + (end - start) / 2;
+	public static long merge(int[] ar, int start, int end, int mid) {
 		 int n1 = mid - start + 1;
          int n2 = end - mid;
          int[] L = new int[n1];
          int[] R = new int[n2];
-         int cmp = 0;
+         long cmp = 0;
 
          for (int i = 0; i < n1; ++i)
              L[i] = ar[start + i];

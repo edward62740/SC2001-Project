@@ -2,36 +2,27 @@ package hybrid_sort;
 
 public class HybridSort {
 	
-	private int THRESHOLD = 0; // value of "S"
+	static private int THRESHOLD = 0; // value of "S"
 	
-	public HybridSort(int th) {
-		// TODO Auto-generated constructor stub
-		this.THRESHOLD = th;
+	static public void setThreshold(int th)
+	{
+		THRESHOLD = th;
 	}
 	
-	public int sort(int[] ar, int start, int end)
+	static public long sort(int[] ar, int start, int end)
 	{
-		int cmp = 0;
+		long cmp = 0;
         if (start < end) {
-            int mid = start + (end - start) / 2;
-
-            cmp += sort(ar, start, mid);
-            cmp += sort(ar, mid + 1, end);
-
-            cmp += combine(ar, start, mid, end);
+    		if((end-start) <= THRESHOLD)
+    			cmp += InsertionSort.sort(ar, start, end);
+    		else 
+    		{
+    			int mid = (start+end)/2;
+    			cmp += sort(ar, start, mid);
+    			cmp += sort(ar, mid+1, end);
+    			cmp += MergeSort.merge(ar, start, end, mid);
+    		}
         }
         return cmp;
-	}
-	
-	private int combine(int[] ar, int start, int mid, int end)
-	{
-		int cmp = 0;
-		if(ar.length > THRESHOLD)
-			cmp += MergeSort.merge(ar, start, end);
-		else 
-			cmp += InsertionSort.sort(ar, start, end);
-		
-		return cmp;
-		
 	}
 }

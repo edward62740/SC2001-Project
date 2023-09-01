@@ -1,31 +1,105 @@
 package hybrid_sort;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 public class Test {
 	
 	private static final long SEED = 1234L;
 	
-	public static void main(String args[])
-	{
-		int arrSize = 1000;
-		HybridSort sorter = new HybridSort(111);
-		long start, stop;
-		int ret;
-		for(int i=1; i<5; i++) // array size to 10M
-		{
-			arrSize *= 10;
-			System.out.println(arrSize);
-			int[] randomArray = generateArray(arrSize);
-			start = System.currentTimeMillis();
-			ret = sorter.sort(randomArray, 0, randomArray.length-1);
-			stop = System.currentTimeMillis();
-			
-			System.out.println("Time taken: " + (stop-start) + " ms for " + arrSize + " iterations and " +
-			ret + " key comparisons");
-			randomArray = null;
-		}
-	}
+	public static void main(String args[]) {
+        int arrSize = 100;
+        HybridSort.setThreshold(64);
+        long start1, stop1;
+        long start2, stop2;
+        long ret1, ret2;
+        
+        try {
+            FileWriter csvWriter = new FileWriter("sort_times.csv");
+            csvWriter.append("size,time(ms)(hybrid),time(ms)(merge),cmp(hybrid),cmp(merge)\n"); // Header for CSV file
+
+            for (int i = 1; i < 30; i++) { // array size to 10M
+                Boolean isSorted = true;
+                arrSize *= 1.5;
+                System.out.println(arrSize);
+                int[] randomArray = generateArray(arrSize);
+                start1 = System.currentTimeMillis();
+                ret1 = HybridSort.sort(randomArray, 0, randomArray.length - 1);
+                stop1 = System.currentTimeMillis();
+                /* verify sorted order */
+                for (int j = 1; j < randomArray.length; j++)
+                    if (randomArray[j - 1] > randomArray[j])
+                        isSorted = false;
+                System.out.println("Sorted: " + isSorted + ". Time taken: " + (stop1 - start1) + " ms for " + arrSize + " arrsize and " +
+                        ret1 + " key comparisons");
+                isSorted = true;
+                randomArray = generateArray(arrSize);
+                start2 = System.currentTimeMillis();
+                ret2 = MergeSort.sort(randomArray, 0, randomArray.length - 1);
+                stop2 = System.currentTimeMillis();
+                /* verify sorted order */
+                for (int j = 1; j < randomArray.length; j++)
+                    if (randomArray[j - 1] > randomArray[j])
+                        isSorted = false;
+
+                System.out.println("Sorted: " + isSorted + ". Time taken: " + (stop2 - start2) + " ms for " + arrSize + " arrsize and " +
+                        ret2 + " key comparisons");
+
+                // Append data to the CSV file
+                csvWriter.append(arrSize + "," + (stop1 - start1) + "," + (stop2 - start2) + "," + ret1 + "," + ret2 + "\n");
+
+                randomArray = null;
+            }
+            
+            csvWriter.close(); // Close the CSV file writer
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        try {
+            FileWriter csvWriter = new FileWriter("s_sizes.csv");
+            csvWriter.append("size,time(ms)(hybrid),time(ms)(merge),cmp(hybrid),cmp(merge)\n"); // Header for CSV file
+
+            for (int i = 1; i < 500; i++) {
+                Boolean isSorted = true;
+                arrSize *= 1.5;
+                System.out.println(arrSize);
+                HybridSort.setThreshold(i);
+                int[] randomArray = generateArray(1000000);
+                start1 = System.currentTimeMillis();
+                ret1 = HybridSort.sort(randomArray, 0, randomArray.length - 1);
+                stop1 = System.currentTimeMillis();
+                /* verify sorted order */
+                for (int j = 1; j < randomArray.length; j++)
+                    if (randomArray[j - 1] > randomArray[j])
+                        isSorted = false;
+                System.out.println("Sorted: " + isSorted + ". Time taken: " + (stop1 - start1) + " ms for " + arrSize + " arrsize and " +
+                        ret1 + " key comparisons");
+                isSorted = true;
+                randomArray = generateArray(1000000);
+                start2 = System.currentTimeMillis();
+                ret2 = MergeSort.sort(randomArray, 0, randomArray.length - 1);
+                stop2 = System.currentTimeMillis();
+                /* verify sorted order */
+                for (int j = 1; j < randomArray.length; j++)
+                    if (randomArray[j - 1] > randomArray[j])
+                        isSorted = false;
+
+                System.out.println("Sorted: " + isSorted + ". Time taken: " + (stop2 - start2) + " ms for " + arrSize + " arrsize and " +
+                        ret2 + " key comparisons");
+
+                // Append data to the CSV file
+                csvWriter.append(arrSize + "," + (stop1 - start1) + "," + (stop2 - start2) + "," + ret1 + "," + ret2 + "\n");
+
+                randomArray = null;
+            }
+            
+            csvWriter.close(); // Close the CSV file writer
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 	
 	
     public static int[] generateArray(int length) {
