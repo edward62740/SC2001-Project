@@ -3,6 +3,7 @@ package dijkstras_algo;
 import java.util.LinkedList;
 import java.util.Random;
 
+
 public class Graph {
 	public int V, E;
 	public int adjMatrix[][];
@@ -12,7 +13,7 @@ public class Graph {
 	public static enum GraphType {
 		DENSE,
 		SPARSE,
-		FC,
+		CUSTOM,
 	}
 	public static final long SEED = 1234L;
 	
@@ -26,7 +27,7 @@ public class Graph {
 	}
 
 
-	public Graph(int V, int maxWeight, GraphType type) {
+	public Graph(int V, int maxWeight, GraphType type, int E) throws IllegalArgumentException {
 
 		// generate sparse graph
 		Random rand = new Random(SEED);
@@ -41,11 +42,17 @@ public class Graph {
 		switch(type)
 		{
 		case DENSE:
-			edges = (V - 1) * V;
+			edges = ((V - 1) * V) / 2;
 			break;
 		case SPARSE:
 			edges = V - 1;
 			break;
+		case CUSTOM:
+		{
+			if (E != -1) edges = E;
+			else throw new IllegalArgumentException();
+			break;
+		}
 		default:
 			break;
 			
