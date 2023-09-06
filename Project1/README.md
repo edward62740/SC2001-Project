@@ -29,16 +29,16 @@ The time complexity is derived as follows. <br>
 
 Suppose we have $n$ elements. Then the algorithm will recursively divide $n$ elements into sublists of size $S$. 
 
-For the merge sort segment, with the recurrence relation $T(n) = 2T(\frac{n}{2}) + O(n)$. Then the height of the recursion tree is approx. $h = log(\frac{n}{S})$   ($2^h=\frac{n}{S}$), and the copying of elements is $O(n)$, then the complexity of the merge sort segment is given by $O(nlog(\frac{n}{S}))$.<br>
-Next, we have insertion sort which has $O(n)$ in the best, $O(n^2)$ in avg and worst cases. It follows that for $\frac{n}{S}$ lists of length $S$, the time complexity of the insertion sort segment is $O(S) *\frac{n}{S} = O(n)$ and $O(S^2) *\frac{n}{S} = O(nS)$ for best, avg/worst cases respectively.
-<br><br>
-
+For the merge sort segment, with the recurrence relation $T(n) = 2T(\frac{n}{2}) + O(n)$. The height of the recursion tree is approx. $h = log(\frac{n}{S})$   ($2^h=\frac{n}{S}$), and the copying of elements is $O(n)$, then the complexity of the merge sort segment is given by $O(nlog(\frac{n}{S}))$.<br>
+Next, we have insertion sort which has $O(n)$ in the best, $O(n^2)$ in avg and worst cases. It follows that for $\frac{n}{S}$ lists of length $S$, the time complexity of the insertion sort segment is $O(S) *\frac{n}{S} = O(n)$ and $O(S^2) *\frac{n}{S} = O(nS)$ for best, avg/worst cases respectively.<br>
+<br>
 
 All the testing used a variable sized array between 500 to 12.5M, where each element $x \in [0, 1000] \cap Z$
 
-<br><br>
+<br>
 The graph below shows the key comparisons made for a variable sized array, for S fixed at 64.
 <br><br>
+
 ![cmp](https://github.com/edward62740/SC2001-Project/blob/main/Project1/doc/keycmp.png)
 
 <br><br>
