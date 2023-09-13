@@ -18,7 +18,6 @@ public class Test {
         try {
             FileWriter csvWriter = new FileWriter("sort_times.csv");
             csvWriter.append("size,time(ms)(hybrid),time(ms)(merge),cmp(hybrid),cmp(merge)\n"); // Header for CSV file
-
             for (int i = 1; i < 30; i++) { // array size to 10M
                 Boolean isSorted = true;
                 arrSize *= 1.5;
@@ -29,7 +28,7 @@ public class Test {
                 stop1 = System.currentTimeMillis();
                 /* verify sorted order */
                 for (int j = 1; j < randomArray.length; j++)
-                    if (randomArray[j - 1] > randomArray[j])
+                    if (randomArray[j - 1] > randomArray[j])no 
                         isSorted = false;
                 System.out.println("Sorted: " + isSorted + ". Time taken: " + (stop1 - start1) + " ms for " + arrSize + " arrsize and " +
                         ret1 + " key comparisons");
