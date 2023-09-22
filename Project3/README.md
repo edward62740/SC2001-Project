@@ -8,7 +8,7 @@ $Base: P(0) = 0$ <br>
 $P(C) = max(P(C), P(C - w_{i}) + p_{i})$
 
 
-Subproblem graph:<br>
+Topologically sorted DAG of subproblems for P(14):<br>
 ![dp](https://github.com/edward62740/SC2001-Project/blob/main/Project3/doc/dp.jpg)
 <br><br>
 The pseudocode for the bottom-up approach used to solve this problem is as follows:
