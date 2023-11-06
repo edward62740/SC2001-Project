@@ -12,8 +12,6 @@ public class Test {
 	    
 	    
 		int ret[] = Knapsack.run(W, P, capacity);
-		
-		for(int i=0; i< ret.length; i++) System.out.print(ret[i]);
 		System.out.println("Result: " + ret[capacity]);
 	}
 }
