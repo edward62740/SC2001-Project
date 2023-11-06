@@ -6,22 +6,14 @@ public class Test {
 		
 		/* modify this */
 		int capacity = 14;
-		int[] W = { 4, 6, 7 };
+		int[] W = { 4, 6, 8 };
 	    int[] P = { 7, 6, 9 };
 	    /***************/
 	    
 	    
-		int ret[][] = Knapsack.run(W, P, capacity);
+		int ret[] = Knapsack.run(W, P, capacity);
 		
-		for(int i=1; i<=W.length; i++)
-		{
-			for(int j=1; j<=capacity; j++)
-			{
-				System.out.print(ret[i][j] + " ");
-			}
-			System.out.println();
-		}
-		
-		System.out.println("Result: " + ret[W.length][capacity]);
+		for(int i=0; i< ret.length; i++) System.out.print(ret[i]);
+		System.out.println("Result: " + ret[capacity]);
 	}
 }
